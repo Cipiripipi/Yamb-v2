@@ -10,6 +10,5 @@ public class ButtonField extends Button
 		this.setText(s);
 		this.setPrefWidth(60);
 		this.setDisable(false);
-		
 	}
 }

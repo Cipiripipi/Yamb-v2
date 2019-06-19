@@ -19,7 +19,7 @@ public class GameOption
 	private CheckBox cb3 = new CheckBox("FROM BOTTOM");
 	private CheckBox cb4 = new CheckBox("FROM MIDDLE TO TOP AND BOTTOM");
 	private CheckBox cb5 = new CheckBox("FROM TOP AND BOTTOM TO MIDDLE");
-	private CheckBox cb6 = new CheckBox("N - ANNOUNCEMENT");
+	private CheckBox cb6 = new CheckBox("N - ANNOUNCEMENT - nije zavrseno");
 	private CheckBox cb7 = new CheckBox("R - HAND");
 	private CheckBox cb8 = new CheckBox("M - MAX");
 	 

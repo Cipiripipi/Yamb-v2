@@ -18,17 +18,17 @@ public class CheckResult
 				
 		for (Dice dice : dices) 
 		{
-			if (dice.isSelected() == true && dice.getNumber() == 1)
+			if (dice.getNumber() == 1)
 				number1++;
-			else if (dice.isSelected() == true && dice.getNumber() == 2)
+			else if (dice.getNumber() == 2)
 				number2++;
-			else if (dice.isSelected() == true && dice.getNumber() == 3)
+			else if (dice.getNumber() == 3)
 				number3++;
-			else if (dice.isSelected() == true && dice.getNumber() == 4)
+			else if (dice.getNumber() == 4)
 				number4++;
-			else if (dice.isSelected() == true && dice.getNumber() == 5)
+			else if (dice.getNumber() == 5)
 				number5++;
-			else if (dice.isSelected() == true && dice.getNumber() == 6)
+			else if (dice.getNumber() == 6)
 				number6++;
 		}
 		ArrayList<Integer> niz = new ArrayList<>();
@@ -57,6 +57,10 @@ public class CheckResult
 	
 	public static int checkYamb (ArrayList<Dice> dices)
 	{
+		//ubaceno da ukoliko se ne zavrte kockice ne izbacuje gresku
+		if (dices.get(0).getNumber() == 0)
+			return 0;
+				
 		HashMap<Dice, Integer> mapDice = new HashMap<Dice, Integer>();
 		mapDice = saveDicesInMap(dices);
 		int sum = 0;
@@ -69,6 +73,10 @@ public class CheckResult
 	}
 	public static int checkPoker (ArrayList<Dice> dices)
 	{
+		//ubaceno da ukoliko se ne zavrte kockice ne izbacuje gresku
+		if (dices.get(0).getNumber() == 0)
+			return 0;
+		
 		HashMap<Dice, Integer> mapDice = new HashMap<Dice, Integer>();
 		mapDice = saveDicesInMap(dices);
 		int sum = 0;
@@ -81,6 +89,10 @@ public class CheckResult
 	}
 	public static int checkTriling (ArrayList<Dice> dices)
 	{
+		//ubaceno da ukoliko se ne zavrte kockice ne izbacuje gresku
+		if (dices.get(0).getNumber() == 0)
+			return 0;
+		
 		HashMap<Dice, Integer> mapDice = new HashMap<Dice, Integer>();
 		mapDice = saveDicesInMap(dices);
 		int sum = 0;
@@ -95,6 +107,10 @@ public class CheckResult
 	
 	public static int checkFull (ArrayList<Dice> dices)
 	{
+		//ubaceno da ukoliko se ne zavrte kockice ne izbacuje gresku
+		if (dices.get(0).getNumber() == 0)
+			return 0;
+		
 		HashMap<Dice, Integer> mapDice = new HashMap<Dice, Integer>();
 		mapDice = saveDicesInMap(dices);
 		int sum = 0;
@@ -114,6 +130,10 @@ public class CheckResult
 	}
 	public static int checkKenta (ArrayList<Dice> dices, int numberOfRoll)
 	{
+		//ubaceno da ukoliko se ne zavrte kockice ne izbacuje gresku
+		if (dices.get(0).getNumber() == 0)
+			return 0;
+				
 		int sum = 0;
 		boolean kenta = false;
 		int numberOfDifferent = 0;
@@ -141,8 +161,13 @@ public class CheckResult
 		return sum;
 	}
 	
+	//u nizu kockica proveravamo da li ima odredjeni broj i ako ima racunamo sumu tog istog broja
 	public static int checkNumber (ArrayList<Dice> dices, int number)
 	{
+		//ubaceno da ukoliko se ne zavrte kockice ne izbacuje gresku
+		if (dices.get(0).getNumber() == 0)
+			return 0;
+		
 		HashMap<Dice, Integer> mapDice = new HashMap<Dice, Integer>();
 		mapDice = saveDicesInMap(dices);
 		int sum = 0;

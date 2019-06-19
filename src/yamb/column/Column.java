@@ -204,10 +204,12 @@ public class Column
 	{
 		YambForm.setBrojPokusaja(0);
 		roll.setDisable(false);
+		
 		for (Dice dice : dices) 
 		{
-			Platform.runLater(() -> dice.setNumber(0));
-			Platform.runLater(() -> dice.setBackground(background0));
+			
+			Platform.runLater(() -> dice.setNumber(0));//pri svakom resetu setovane kockice na 0, u suprotnom bi mogli vise puta da upisujemo isti rezultat (jer ostaju upamcenje poslednje kockice)
+			Platform.runLater(() -> dice.setBackground(background0));//setujemo "praznu" kockicu
 		}
 		for (CheckBox c : chk)
 		{
@@ -267,13 +269,26 @@ public class Column
 		}
 	}
 	
-	protected void ruleForHand()
+	//nakon prvog bacanja kockice polja u coloni hand postavljamo na true.
+	public void ruleForHand()
 	{
-		if (YambForm.getBrojPokusaja() > 1)
+		if (YambForm.getBrojPokusaja() > 0)
 		{
 			for (Button button : nizButtona) 
 			{
 				button.setDisable(true);
+			}
+		}
+	}
+	//pri prvom bacanju vracamo polja koja su prazna na enable
+	public void ruleForHandResetEmptyField()
+	{
+		if (YambForm.getBrojPokusaja() == 0)
+		{
+			for (Button button : nizButtona)
+			{
+				if (button.getText() == "" )
+					button.setDisable(false);
 			}
 		}
 	}

@@ -15,6 +15,8 @@ import yamb.column.ColumnFromMiddle;
 import yamb.column.ColumnFromTop;
 import yamb.column.ColumnFromTopAndBottomToMiddle;
 import yamb.column.ColumnHand;
+import yamb.column.ColumnMax;
+import yamb.column.ColumnSum;
 
 public class YambForm 
 {
@@ -25,6 +27,15 @@ public class YambForm
 	private static int brojPokusaja = 0;
 	
 	private Button roll = new Button("ROLL");
+	
+	ColumnFromTop columnFromTop = new ColumnFromTop(dices, roll, chk);
+	Column columnFree = new Column(dices, roll, chk);
+	ColumnFromBottom columnFromBottom = new ColumnFromBottom(dices, roll, chk);
+	ColumnFromMiddle columnFromMiddle = new ColumnFromMiddle(dices, roll, chk);
+	ColumnFromTopAndBottomToMiddle columnFromTopAndBottomToMiddle = new ColumnFromTopAndBottomToMiddle(dices, roll, chk);
+	ColumnHand columnHand = new ColumnHand(dices, roll, chk);
+	ColumnMax columnMax = new ColumnMax(dices, roll, chk);
+	ColumnSum columnSum = new ColumnSum();
 	
 	public YambForm(GameOption go) 
 	{
@@ -66,6 +77,8 @@ public class YambForm
 		VBox.setMargin(roll, new Insets(5, 0, 20, 185));
 
 		roll.setOnAction((ActionEvent event) -> {
+			columnHand.ruleForHand();
+			columnHand.ruleForHandResetEmptyField();
 			
 			if (brojPokusaja <= 2)
 			{
@@ -83,6 +96,7 @@ public class YambForm
 			if (brojPokusaja >= 3) 
 			{
 				roll.setDisable(true);
+				
 			}
 		});
 
@@ -92,23 +106,30 @@ public class YambForm
 		GridPane gpColumn = new GridPane();
 		gpColumn.add(new FieldName().getVb(), 0, 0);
 		
-		ColumnFromTop columnFromTop = new ColumnFromTop(dices, roll, chk);
+		
 		gpColumn.add(columnFromTop.getVb(), 1, 0);
 		
-		Column columnFree = new Column(dices, roll, chk);
+		
 		gpColumn.add(columnFree.getVb(), 2, 0);
 		
-		ColumnFromBottom columnFromBottom = new ColumnFromBottom(dices, roll, chk);
+		
 		gpColumn.add(columnFromBottom.getVb(), 3, 0);
 		
-		ColumnFromMiddle columnFromMiddle = new ColumnFromMiddle(dices, roll, chk);
+		
 		gpColumn.add(columnFromMiddle.getVb(), 4, 0);
 		
-		ColumnFromTopAndBottomToMiddle columnFromTopAndBottomToMiddle = new ColumnFromTopAndBottomToMiddle(dices, roll, chk);
+		
 		gpColumn.add(columnFromTopAndBottomToMiddle.getVb(), 5, 0);
 		
-		ColumnHand columnHand = new ColumnHand(dices, roll, chk);
+		
 		gpColumn.add(columnHand.getVb(), 6, 0);
+		
+		
+		gpColumn.add(columnMax.getVb(), 7, 0);
+		
+		
+		gpColumn.add(columnSum.getVb(), 8, 0);
+		
 		
 		vbox.getChildren().add(gpColumn);
 
