@@ -210,6 +210,7 @@ public class YambForm
 			columnSum.getNizButtona().get(17).setText(String.valueOf(sum));
 		}
 		
+		
 	}
 	
 	public Scene getScene() {return scene;}

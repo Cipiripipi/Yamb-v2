@@ -146,6 +146,7 @@ public class Column
 			b1.setDisable(true);
 			resetAfter3roll(dices, roll, chk);
 			z16.setText(String.valueOf(SumResult.sumNumber(b1, b2, b3, b4, b5, b6)));
+			zMaxMin.setText(String.valueOf(SumResult.sumMaxMin(max, min, b1)));
 		});
 		
 		b2.setOnAction(e-> {
