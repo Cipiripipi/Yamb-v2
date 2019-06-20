@@ -31,7 +31,7 @@ public class SumResult
 		return sum;
 	}
 	
-	//za zbir svih kolona i za konacan zbir
+	//za zbir svih kolona i za konacan zbir. Pozivamo kasnije kod racunanje zbira svih z16 ili zMaxMin ili zKentaYamb i za kocanac zbir
 	public static int sumColumn(int...s)
 	{
 		int sum = 0;
@@ -41,5 +41,4 @@ public class SumResult
 			}
 		return sum;
 	}
-	
 }

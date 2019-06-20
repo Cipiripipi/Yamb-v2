@@ -34,17 +34,20 @@ public class Dice extends Button
 		this.number = 0;
 	}
 	
+	//dodeljujemo random broj kockici
 	public void rollDice()
 	{
 		number = new Random().nextInt(6) + 1;
 	}
 	
+	//prikazujemo graficki kockicu
 	public void showDice (Dice dice)
 	{
 		int randomRoll = new Random().nextInt(5) + 10;
 		
-		Task<Void> task = new Task<Void>() {
-
+		//Kockica se vrti...
+		Task<Void> task = new Task<Void>() 
+		{
 			@Override
 			protected Void call() throws Exception 
 			{
@@ -63,6 +66,7 @@ public class Dice extends Button
 			        Platform.runLater(() -> dice.setBackground(background));
 				}
 			    
+				//Postavljamo konacnu vrednost kockice
 			    String diceImageString = "Kockice/Kockica" + number + colorOfDice + ".png";
 			    Image diceImage = new Image(diceImageString);
 			    BackgroundImage backgroundImage = new BackgroundImage(diceImage, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
@@ -71,7 +75,6 @@ public class Dice extends Button
 		       
 				return null;
 			}
-			
 		};
 		Thread th = new Thread(task);
 		th.start();
@@ -83,5 +86,4 @@ public class Dice extends Button
 	public Pane getPane() {return pane;}
 	public boolean isSelected() {return selected;}
 	public void setSelected(boolean selected) {this.selected = selected;}
-	
 }

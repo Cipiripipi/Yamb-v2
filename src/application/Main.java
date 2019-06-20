@@ -14,7 +14,6 @@ public class Main extends Application
 	{
 		try
 		{
-			
 			primaryStage.setMaxHeight(315);
 			primaryStage.setMaxWidth(415);
 			primaryStage.setTitle("YAMB");

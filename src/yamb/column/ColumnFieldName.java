@@ -1,12 +1,19 @@
-package yamb;
+package yamb.column;
 
+import javafx.scene.layout.Border;
+import javafx.scene.layout.BorderStroke;
+import javafx.scene.layout.BorderStrokeStyle;
+import javafx.scene.layout.BorderWidths;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import yamb.ButtonFieldName;
 
-public class FieldName 
+public class ColumnFieldName 
 {
 	private VBox vb = new VBox();
 	
-	public FieldName ()
+	public ColumnFieldName ()
 	{
 		ButtonFieldName b = new ButtonFieldName("");
 		b.setPrefSize(60, 50);
@@ -32,6 +39,15 @@ public class FieldName
 		ButtonFieldName yamb = new ButtonFieldName("YAMB");
 		
 		ButtonFieldName zKentaYamb = new ButtonFieldName("SUM");
+		
+		z16.setBorder(new Border(new BorderStroke(Color.RED, BorderStrokeStyle.SOLID, new CornerRadii(2), new BorderWidths(1))));
+		//z16.setStyle("-fx-background-color: white");
+		
+		zMaxMin.setBorder(new Border(new BorderStroke(Color.RED, BorderStrokeStyle.SOLID, new CornerRadii(2), new BorderWidths(1))));
+		//zMaxMin.setStyle("-fx-background-color: white");
+		
+		zKentaYamb.setBorder(new Border(new BorderStroke(Color.RED, BorderStrokeStyle.SOLID, new CornerRadii(2), new BorderWidths(1))));
+		//zKentaYamb.setStyle("-fx-background-color: white");
 		
 		vb.getChildren().addAll(b, b1, b2, b3, b4, b5, b6, z16, max, min, zMaxMin, kenta, triling, full, poker, yamb, zKentaYamb);
 	}

@@ -19,6 +19,7 @@ public class ColumnSum
 	public ColumnSum ()
 	{
 		vb.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, new CornerRadii(2), new BorderWidths(1))));
+		
 		for (int i = 0; i < 18; i++)
 		{
 			ButtonField b = new ButtonField("");
@@ -27,11 +28,17 @@ public class ColumnSum
 			nizButtona.add(b);
 			vb.getChildren().add(b);
 		}
+		nizButtona.get(0).setText("SUM");
+		nizButtona.get(0).setVisible(true);
 		nizButtona.get(0).setPrefSize(60, 50);
 		nizButtona.get(7).setVisible(true);
+		nizButtona.get(7).setBorder(new Border(new BorderStroke(Color.RED, BorderStrokeStyle.SOLID, new CornerRadii(2), new BorderWidths(1))));
 		nizButtona.get(10).setVisible(true);
+		nizButtona.get(10).setBorder(new Border(new BorderStroke(Color.RED, BorderStrokeStyle.SOLID, new CornerRadii(2), new BorderWidths(1))));
 		nizButtona.get(16).setVisible(true);
+		nizButtona.get(16).setBorder(new Border(new BorderStroke(Color.RED, BorderStrokeStyle.SOLID, new CornerRadii(2), new BorderWidths(1))));
 		nizButtona.get(17).setVisible(true);
+		nizButtona.get(17).setBorder(new Border(new BorderStroke(Color.RED, BorderStrokeStyle.SOLID, new CornerRadii(2), new BorderWidths(1))));
 	}
 
 	public VBox getVb() {return vb;}

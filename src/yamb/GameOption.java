@@ -110,5 +110,4 @@ public class GameOption
 	public RadioButton getRb4() {return rb4;}
 	public Button getOk() {return ok;}
 	public ToggleGroup getTg() {return tg;}
-	
 }

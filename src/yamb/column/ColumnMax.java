@@ -59,6 +59,7 @@ public class ColumnMax extends Column
 				kenta.setText("0");
 			
 		});
+		
 		triling.setOnMouseReleased(e -> {
 			if (CheckResult.checkTriling(dices) != 38)
 				triling.setText("0");
@@ -68,6 +69,7 @@ public class ColumnMax extends Column
 			if (CheckResult.checkFull(dices) != 58)
 				full.setText("0");
 		});
+		
 		poker.setOnMouseReleased(e -> {
 			if (CheckResult.checkPoker(dices) != 64)
 				poker.setText("0");
@@ -77,14 +79,15 @@ public class ColumnMax extends Column
 			if (CheckResult.checkYamb(dices) != 80)
 				yamb.setText("0");
 		});
+		
 		max.setOnMouseReleased(e -> {
 			if (max.getText().equalsIgnoreCase("30") == false)
 				max.setText("0");
 		});
+		
 		min.setOnMouseReleased(e -> {
 			if (min.getText().equals("5") == false)
 				min.setText("0");
 		});
 	}
-	
 }

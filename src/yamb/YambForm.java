@@ -12,6 +12,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import yamb.column.Column;
+import yamb.column.ColumnFieldName;
 import yamb.column.ColumnFromBottom;
 import yamb.column.ColumnFromMiddle;
 import yamb.column.ColumnFromTop;
@@ -83,6 +84,7 @@ public class YambForm
 		roll.setOnAction((ActionEvent event) -> {
 			columnHand.ruleForHand();
 			columnHand.ruleForHandResetEmptyField();
+			calculateResult();
 			
 			if (brojPokusaja <= 2)
 			{
@@ -98,10 +100,7 @@ public class YambForm
 			}
 
 			if (brojPokusaja >= 3) 
-			{
 				roll.setDisable(true);
-				
-			}
 		});
 
 		vbox.getChildren().add(roll);
@@ -109,7 +108,7 @@ public class YambForm
 		//Za pakovanje kolona
 		GridPane gpColumn = new GridPane();
 		
-		gpColumn.add(new FieldName().getVb(), 0, 0);
+		gpColumn.add(new ColumnFieldName().getVb(), 0, 0);
 		
 		if (go.getCb1().isSelected())
 		{
@@ -192,6 +191,8 @@ public class YambForm
 		int sumZ16 = 0;
 		int sumZMaxMin = 0;
 		int sumZKentaYamb = 0;
+		
+		//sabiramo sume za kolone i prikazujemo
 		for (Column c : listCheckedColumn) 
 		{
 			if (c.getZ16().getText() != "")
@@ -200,17 +201,22 @@ public class YambForm
 				sumZMaxMin += Integer.valueOf(c.getzMaxMin().getText());
 			if (c.getzKentaYamb().getText() != "")
 				sumZKentaYamb += Integer.valueOf(c.getzKentaYamb().getText());
+			
+			c.getZ16().setText(String.valueOf(SumResult.sumNumber(c.getB1(), c.getB2(), c.getB3(), c.getB4(), c.getB5(), c.getB6())));
+			c.getzMaxMin().setText(String.valueOf(SumResult.sumMaxMin(c.getMax(), c.getMin(), c.getB1())));
+			c.getzKentaYamb().setText(String.valueOf(SumResult.sumKentaYamb(c.getKenta(), c.getTriling(), c.getFull(), c.getPoker(), c.getYamb())));
 		}
+		//sabiramo sumu za red sumZ16, sumZMaxMin i sumZKentaYamb
 		columnSum.getNizButtona().get(7).setText(String.valueOf(sumZ16));
 		columnSum.getNizButtona().get(10).setText(String.valueOf(sumZMaxMin));
 		columnSum.getNizButtona().get(16).setText(String.valueOf(sumZKentaYamb));
+		
+		//sabiramo i ispisujemo konacan rezultat
 		if (columnSum.getNizButtona().get(7).getText() != "" && columnSum.getNizButtona().get(10).getText() != "" && columnSum.getNizButtona().get(16).getText() != "")
 		{
 			int sum = Integer.valueOf(columnSum.getNizButtona().get(7).getText()) + Integer.valueOf(columnSum.getNizButtona().get(10).getText()) + Integer.valueOf(columnSum.getNizButtona().get(16).getText());
 			columnSum.getNizButtona().get(17).setText(String.valueOf(sum));
 		}
-		
-		
 	}
 	
 	public Scene getScene() {return scene;}

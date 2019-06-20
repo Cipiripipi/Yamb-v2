@@ -57,7 +57,7 @@ public class CheckResult
 	
 	public static int checkYamb (ArrayList<Dice> dices)
 	{
-		//ubaceno da ukoliko se ne zavrte kockice ne izbacuje gresku
+		//ubaceno da ukoliko se ne zavrte kockice ne izbacuje gresku vec upise 0 kao rezultat
 		if (dices.get(0).getNumber() == 0)
 			return 0;
 				
@@ -71,6 +71,7 @@ public class CheckResult
 		}
 		return sum;
 	}
+	
 	public static int checkPoker (ArrayList<Dice> dices)
 	{
 		//ubaceno da ukoliko se ne zavrte kockice ne izbacuje gresku
@@ -87,6 +88,7 @@ public class CheckResult
 		}
 		return sum;
 	}
+	
 	public static int checkTriling (ArrayList<Dice> dices)
 	{
 		//ubaceno da ukoliko se ne zavrte kockice ne izbacuje gresku
@@ -128,6 +130,7 @@ public class CheckResult
 		
 		return sum;
 	}
+	
 	public static int checkKenta (ArrayList<Dice> dices, int numberOfRoll)
 	{
 		//ubaceno da ukoliko se ne zavrte kockice ne izbacuje gresku
