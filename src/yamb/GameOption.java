@@ -20,7 +20,7 @@ public class GameOption
 	private CheckBox cb4 = new CheckBox("FROM MIDDLE TO TOP AND BOTTOM");
 	private CheckBox cb5 = new CheckBox("FROM TOP AND BOTTOM TO MIDDLE");
 	private CheckBox cb6 = new CheckBox("N - ANNOUNCEMENT - nije zavrseno");
-	private CheckBox cb7 = new CheckBox("R - HAND");
+	private CheckBox cb7 = new CheckBox("H - HAND");
 	private CheckBox cb8 = new CheckBox("M - MAX");
 	 
 	private RadioButton rb1 = new RadioButton("BLACK");
@@ -31,6 +31,7 @@ public class GameOption
 	private ToggleGroup tg = new ToggleGroup();
 	
 	private Button ok = new Button("OK");
+	private Button selectAll = new Button("SELECT ALL");
 	
 	public GameOption ()
 	{
@@ -59,7 +60,7 @@ public class GameOption
 		gp.add(cb3, 0, 3);
 		gp.add(cb4, 0, 4);
 		gp.add(cb5, 0, 5);
-		gp.add(cb6, 0, 6);
+		//gp.add(cb6, 0, 6);
 		gp.add(cb7, 0, 7);
 		gp.add(cb8, 0, 8);
 		
@@ -69,6 +70,21 @@ public class GameOption
 		gp.add(rb2, 1, 2);
 		gp.add(rb3, 1, 3);
 		gp.add(rb4, 1, 4);
+		
+		selectAll.setAlignment(Pos.CENTER);
+		selectAll.setPrefSize(90, 30);
+		
+		selectAll.setOnAction(e -> {
+			cb1.setSelected(true);
+			cb2.setSelected(true);
+			cb3.setSelected(true);
+			cb4.setSelected(true);
+			cb5.setSelected(true);
+			cb7.setSelected(true);
+			cb8.setSelected(true);
+			
+		});
+		gp.add(selectAll, 0, 9);
 		
 		ok.setAlignment(Pos.CENTER);
 		ok.setPrefSize(80, 50);

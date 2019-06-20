@@ -4,10 +4,12 @@ import java.util.ArrayList;
 
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import yamb.column.Column;
 import yamb.column.ColumnFromBottom;
@@ -36,6 +38,8 @@ public class YambForm
 	ColumnHand columnHand = new ColumnHand(dices, roll, chk);
 	ColumnMax columnMax = new ColumnMax(dices, roll, chk);
 	ColumnSum columnSum = new ColumnSum();
+	
+	private ArrayList<Column> listCheckedColumn = new ArrayList<>();
 	
 	public YambForm(GameOption go) 
 	{
@@ -104,35 +108,68 @@ public class YambForm
 		
 		//Za pakovanje kolona
 		GridPane gpColumn = new GridPane();
+		
 		gpColumn.add(new FieldName().getVb(), 0, 0);
 		
+		if (go.getCb1().isSelected())
+		{
+			gpColumn.add(columnFromTop.getVb(), 1, 0);
+			listCheckedColumn.add(columnFromTop);
+		}
 		
-		gpColumn.add(columnFromTop.getVb(), 1, 0);
+		if (go.getCb2().isSelected())
+		{
+			gpColumn.add(columnFree.getVb(), 2, 0);
+			listCheckedColumn.add(columnFree);
+		}
 		
+		if (go.getCb3().isSelected())
+		{
+			gpColumn.add(columnFromBottom.getVb(), 3, 0);
+			listCheckedColumn.add(columnFromBottom);
+		}
 		
-		gpColumn.add(columnFree.getVb(), 2, 0);
+		if (go.getCb4().isSelected())
+		{
+			gpColumn.add(columnFromMiddle.getVb(), 4, 0);
+			listCheckedColumn.add(columnFromMiddle);
+		}
 		
+		if (go.getCb5().isSelected())
+		{
+			gpColumn.add(columnFromTopAndBottomToMiddle.getVb(), 5, 0);
+			listCheckedColumn.add(columnFromTopAndBottomToMiddle);
+		}
 		
-		gpColumn.add(columnFromBottom.getVb(), 3, 0);
+		if (go.getCb7().isSelected())
+		{
+			gpColumn.add(columnHand.getVb(), 6, 0);
+			listCheckedColumn.add(columnHand);
+		}
 		
-		
-		gpColumn.add(columnFromMiddle.getVb(), 4, 0);
-		
-		
-		gpColumn.add(columnFromTopAndBottomToMiddle.getVb(), 5, 0);
-		
-		
-		gpColumn.add(columnHand.getVb(), 6, 0);
-		
-		
-		gpColumn.add(columnMax.getVb(), 7, 0);
+		if (go.getCb8().isSelected())
+		{
+			gpColumn.add(columnMax.getVb(), 7, 0);
+			listCheckedColumn.add(columnMax);
+		}
 		
 		
 		gpColumn.add(columnSum.getVb(), 8, 0);
 		
 		
+		gpColumn.setAlignment(Pos.CENTER);
+		
 		vbox.getChildren().add(gpColumn);
-
+		
+		Button result = new Button("Calculate result");
+		result.setOnAction(e -> calculateResult());
+		
+		HBox boxResult = new HBox(10);
+		boxResult.getChildren().add(result);
+		boxResult.setAlignment(Pos.CENTER);
+		
+		vbox.getChildren().add(boxResult);
+		
 		scene = new Scene(vbox, 400, 400);
 	}
 	
@@ -149,10 +186,34 @@ public class YambForm
 				dices.get(i).setSelected(true);
 		}
 	}
+	//racuna konacni rezultat
+	private void calculateResult()
+	{
+		int sumZ16 = 0;
+		int sumZMaxMin = 0;
+		int sumZKentaYamb = 0;
+		for (Column c : listCheckedColumn) 
+		{
+			if (c.getZ16().getText() != "")
+				sumZ16 += Integer.valueOf(c.getZ16().getText());
+			if (c.getzMaxMin().getText() != "")
+				sumZMaxMin += Integer.valueOf(c.getzMaxMin().getText());
+			if (c.getzKentaYamb().getText() != "")
+				sumZKentaYamb += Integer.valueOf(c.getzKentaYamb().getText());
+		}
+		columnSum.getNizButtona().get(7).setText(String.valueOf(sumZ16));
+		columnSum.getNizButtona().get(10).setText(String.valueOf(sumZMaxMin));
+		columnSum.getNizButtona().get(16).setText(String.valueOf(sumZKentaYamb));
+		if (columnSum.getNizButtona().get(7).getText() != "" && columnSum.getNizButtona().get(10).getText() != "" && columnSum.getNizButtona().get(16).getText() != "")
+		{
+			int sum = Integer.valueOf(columnSum.getNizButtona().get(7).getText()) + Integer.valueOf(columnSum.getNizButtona().get(10).getText()) + Integer.valueOf(columnSum.getNizButtona().get(16).getText());
+			columnSum.getNizButtona().get(17).setText(String.valueOf(sum));
+		}
+		
+	}
 	
 	public Scene getScene() {return scene;}
 	public static int getBrojPokusaja() {return brojPokusaja;}
 	public static void setBrojPokusaja(int brojPokusaja) {YambForm.brojPokusaja = brojPokusaja;}
-	
 
 }

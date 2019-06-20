@@ -54,6 +54,11 @@ public class Column
 	public Column (ArrayList<Dice> dices, Button roll, ArrayList<CheckBox> chk)
 	{
 		b.setDisable(true);
+		b.setPrefSize(60, 50);
+		Image diceImage = new Image("Kockice/ColumnFree.png");
+	    BackgroundImage backgroundImage = new BackgroundImage(diceImage, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
+        Background background = new Background(backgroundImage);
+        b.setBackground(background);
 		z16.setDisable(true);
 		zMaxMin.setDisable(true);
 		zKentaYamb.setDisable(true);
@@ -292,12 +297,9 @@ public class Column
 			}
 		}
 	}
-	
-	protected void ruleForMax()
-	{
-		
-	}
-
 	public VBox getVb() {return vb;}
-		
+	public ButtonField getZ16() {return z16;}
+	public ButtonField getzMaxMin() {return zMaxMin;}
+	public ButtonField getzKentaYamb() {return zKentaYamb;}
+	
 }

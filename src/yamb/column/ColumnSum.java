@@ -27,6 +27,7 @@ public class ColumnSum
 			nizButtona.add(b);
 			vb.getChildren().add(b);
 		}
+		nizButtona.get(0).setPrefSize(60, 50);
 		nizButtona.get(7).setVisible(true);
 		nizButtona.get(10).setVisible(true);
 		nizButtona.get(16).setVisible(true);
@@ -34,4 +35,6 @@ public class ColumnSum
 	}
 
 	public VBox getVb() {return vb;}
+	public ArrayList<ButtonField> getNizButtona() {return nizButtona;}
+	
 }

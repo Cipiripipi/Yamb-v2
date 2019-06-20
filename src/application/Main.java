@@ -24,7 +24,7 @@ public class Main extends Application
 			go.getOk().setOnAction(e -> {
 				yambForm = new YambForm(go);
 				primaryStage.setMinWidth(600);
-				primaryStage.setMinHeight(700);
+				primaryStage.setMinHeight(720);
 				primaryStage.setScene(yambForm.getScene());
 				primaryStage.show();
 			});

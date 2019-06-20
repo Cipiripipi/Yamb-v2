@@ -9,6 +9,7 @@ public class FieldName
 	public FieldName ()
 	{
 		ButtonFieldName b = new ButtonFieldName("");
+		b.setPrefSize(60, 50);
 		
 		ButtonFieldName b1 = new ButtonFieldName("1");
 		ButtonFieldName b2 = new ButtonFieldName("2");
