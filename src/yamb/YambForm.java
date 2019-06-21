@@ -8,9 +8,15 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.layout.Border;
+import javafx.scene.layout.BorderStroke;
+import javafx.scene.layout.BorderStrokeStyle;
+import javafx.scene.layout.BorderWidths;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import yamb.column.Column;
 import yamb.column.ColumnFieldName;
 import yamb.column.ColumnFromBottom;
@@ -25,19 +31,19 @@ public class YambForm
 {
 
 	private Scene scene;
-	private ArrayList<Dice> dices = new ArrayList<>();
 	private ArrayList<CheckBox> chk = new ArrayList<>();
 	private static int brojPokusaja = 0;
+	private ArrayList<DiceCanvas> dicesCanvas = new ArrayList<>();
 	
 	private Button roll = new Button("ROLL");
 	
-	ColumnFromTop columnFromTop = new ColumnFromTop(dices, roll, chk);
-	Column columnFree = new Column(dices, roll, chk);
-	ColumnFromBottom columnFromBottom = new ColumnFromBottom(dices, roll, chk);
-	ColumnFromMiddle columnFromMiddle = new ColumnFromMiddle(dices, roll, chk);
-	ColumnFromTopAndBottomToMiddle columnFromTopAndBottomToMiddle = new ColumnFromTopAndBottomToMiddle(dices, roll, chk);
-	ColumnHand columnHand = new ColumnHand(dices, roll, chk);
-	ColumnMax columnMax = new ColumnMax(dices, roll, chk);
+	ColumnFromTop columnFromTop = new ColumnFromTop(dicesCanvas, roll, chk);
+	Column columnFree = new Column(dicesCanvas, roll, chk);
+	ColumnFromBottom columnFromBottom = new ColumnFromBottom(dicesCanvas, roll, chk);
+	ColumnFromMiddle columnFromMiddle = new ColumnFromMiddle(dicesCanvas, roll, chk);
+	ColumnFromTopAndBottomToMiddle columnFromTopAndBottomToMiddle = new ColumnFromTopAndBottomToMiddle(dicesCanvas, roll, chk);
+	ColumnHand columnHand = new ColumnHand(dicesCanvas, roll, chk);
+	ColumnMax columnMax = new ColumnMax(dicesCanvas, roll, chk);
 	ColumnSum columnSum = new ColumnSum();
 	
 	private ArrayList<Column> listCheckedColumn = new ArrayList<>();
@@ -48,9 +54,11 @@ public class YambForm
 		// GLAVNO
 		VBox vbox = new VBox();
 		vbox.setPadding(new Insets(5, 5, 5, 5));
-
+		
 		// GP ZA KOCKICE I CHECK
 		GridPane gp1 = new GridPane();
+		gp1.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, new CornerRadii(2), new BorderWidths(1))));
+		
 		gp1.setVgap(10);
 		gp1.setHgap(10);
 		gp1.setPadding(new Insets(5, 10, 5, 50));
@@ -58,15 +66,19 @@ public class YambForm
 		{
 			if (go.getTg().getSelectedToggle() != null) 
 			{
-				Dice dice = new Dice(gp1, go.getTg().getSelectedToggle().getUserData().toString());
-				gp1.add(dice, i, 0);
-				dices.add(dice);
+//				Dice dice = new Dice(gp1, go.getTg().getSelectedToggle().getUserData().toString());
+//				gp1.add(dice, i, 2);
+//				dices.add(dice);
+				
+				DiceCanvas diceCanvas = new DiceCanvas(go.getTg().getSelectedToggle().getUserData().toString());
+				gp1.add(diceCanvas, i, 0);
+				dicesCanvas.add(diceCanvas);
 			} 
 			else 
 			{
-				Dice dice = new Dice(gp1, "black");
-				gp1.add(dice, i, 0);
-				dices.add(dice);
+				DiceCanvas diceCanvas = new DiceCanvas("black");
+				gp1.add(diceCanvas, i, 0);
+				dicesCanvas.add(diceCanvas);
 			}
 
 			CheckBox check = new CheckBox();
@@ -82,6 +94,7 @@ public class YambForm
 		VBox.setMargin(roll, new Insets(5, 0, 20, 185));
 
 		roll.setOnAction((ActionEvent event) -> {
+			
 			columnHand.ruleForHand();
 			columnHand.ruleForHandResetEmptyField();
 			calculateResult();
@@ -89,14 +102,17 @@ public class YambForm
 			if (brojPokusaja <= 2)
 			{
 				brojPokusaja++;
-				for (int i = 0; i < dices.size(); i++) 
+				for (int i = 0; i < dicesCanvas.size(); i++) 
 				{
 					if (chk.get(i).isSelected() == false) 
 					{
-						dices.get(i).rollDice();
-						dices.get(i).showDice(dices.get(i));
+
+						dicesCanvas.get(i).setNumber(dicesCanvas.get(i).rollDice());
+						dicesCanvas.get(i).showDice(dicesCanvas.get(i));
+						System.out.println(dicesCanvas.get(i).getNumber());
 					}
 				}
+				System.out.println("***********");
 			}
 
 			if (brojPokusaja >= 3) 
@@ -173,16 +189,16 @@ public class YambForm
 	}
 	
 	//pravi listu sa obelezenim kockicama
-	public static void pickDices (ArrayList<Dice> dices, ArrayList<CheckBox> chk) 
+	public static void pickDices (ArrayList<DiceCanvas> dicesCanvas, ArrayList<CheckBox> chk) 
 	{
-		for (Dice dice : dices) 
+		for (DiceCanvas dice : dicesCanvas) 
 		{
 			dice.setSelected(false);
 		}
-		for (int i = 0; i < dices.size(); i ++)
+		for (int i = 0; i < dicesCanvas.size(); i ++)
 		{
 			if (chk.get(i).isSelected() == true)
-				dices.get(i).setSelected(true);
+				dicesCanvas.get(i).setSelected(true);
 		}
 	}
 	//racuna konacni rezultat

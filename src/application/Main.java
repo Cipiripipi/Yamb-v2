@@ -14,8 +14,8 @@ public class Main extends Application
 	{
 		try
 		{
-			primaryStage.setMaxHeight(315);
-			primaryStage.setMaxWidth(415);
+			primaryStage.setMaxHeight(330);
+			primaryStage.setMaxWidth(700);
 			primaryStage.setTitle("YAMB");
 			primaryStage.setScene(go.getScene());
 			primaryStage.show();
@@ -23,7 +23,7 @@ public class Main extends Application
 			go.getOk().setOnAction(e -> {
 				yambForm = new YambForm(go);
 				primaryStage.setMinWidth(600);
-				primaryStage.setMinHeight(720);
+				primaryStage.setMinHeight(730);
 				primaryStage.setScene(yambForm.getScene());
 				primaryStage.show();
 			});

@@ -11,14 +11,14 @@ import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
-import yamb.Dice;
+import yamb.DiceCanvas;
 
 public class ColumnFromMiddle extends Column 
 {
 
-	public ColumnFromMiddle(ArrayList<Dice> dices, Button roll, ArrayList<CheckBox> chk) 
+	public ColumnFromMiddle(ArrayList<DiceCanvas> dicesCanvas, Button roll, ArrayList<CheckBox> chk) 
 	{
-		super(dices, roll, chk);
+		super(dicesCanvas, roll, chk);
 		Image diceImage = new Image("Kockice/ColumnFromMiddle.png");
 	    BackgroundImage backgroundImage = new BackgroundImage(diceImage, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
         Background background = new Background(backgroundImage);

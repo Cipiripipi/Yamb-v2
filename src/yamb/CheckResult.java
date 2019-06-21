@@ -7,7 +7,7 @@ import java.util.Map;
 public class CheckResult 
 {
 	//brojimo koliko ima istih kockica
-	private static ArrayList<Integer> countDices (ArrayList<Dice> dices)
+	private static ArrayList<Integer> countDices (ArrayList<DiceCanvas> dicesCanvas)
 	{
 		Integer number1 = 0;
 		Integer number2 = 0;
@@ -16,7 +16,7 @@ public class CheckResult
 		Integer number5 = 0;
 		Integer number6 = 0;
 				
-		for (Dice dice : dices) 
+		for (DiceCanvas dice : dicesCanvas) 
 		{
 			if (dice.getNumber() == 1)
 				number1++;
@@ -42,29 +42,29 @@ public class CheckResult
 		return niz;
 	}
 	//smestamo u mapu kockice i broj istih vrednosti kockice
-	private static HashMap<Dice, Integer> saveDicesInMap (ArrayList<Dice> dices)
+	private static HashMap<DiceCanvas, Integer> saveDicesInMap (ArrayList<DiceCanvas> dicesCanvas)
 	{
-		HashMap<Dice, Integer> mapDice = new HashMap<Dice, Integer>();
+		HashMap<DiceCanvas, Integer> mapDice = new HashMap<DiceCanvas, Integer>();
 		ArrayList<Integer> niz = new ArrayList<>();
-		niz = countDices(dices);
+		niz = countDices(dicesCanvas);
 		
 		for (int i = 0; i < niz.size(); i++)
 		{
-			mapDice.put(dices.get(i), niz.get(dices.get(i).getNumber() - 1));
+			mapDice.put(dicesCanvas.get(i), niz.get(dicesCanvas.get(i).getNumber() - 1));//kockica sa brojem 1 se nalazi na 0 elementu u nizu, zato je -1. moze i samo niz.get(i)
 		}
 		return mapDice;
 	}
 	
-	public static int checkYamb (ArrayList<Dice> dices)
+	public static int checkYamb (ArrayList<DiceCanvas> dicesCanvas)
 	{
 		//ubaceno da ukoliko se ne zavrte kockice ne izbacuje gresku vec upise 0 kao rezultat
-		if (dices.get(0).getNumber() == 0)
+		if (dicesCanvas.get(0).getNumber() == 0)
 			return 0;
 				
-		HashMap<Dice, Integer> mapDice = new HashMap<Dice, Integer>();
-		mapDice = saveDicesInMap(dices);
+		HashMap<DiceCanvas, Integer> mapDice = new HashMap<DiceCanvas, Integer>();
+		mapDice = saveDicesInMap(dicesCanvas);
 		int sum = 0;
-		for (Map.Entry<Dice, Integer> e : mapDice.entrySet())
+		for (Map.Entry<DiceCanvas, Integer> e : mapDice.entrySet())
 		{
 			if (e.getValue() >= 5)
 				sum = e.getKey().getNumber() * 5 + 50;
@@ -72,16 +72,16 @@ public class CheckResult
 		return sum;
 	}
 	
-	public static int checkPoker (ArrayList<Dice> dices)
+	public static int checkPoker (ArrayList<DiceCanvas> dicesCanvas)
 	{
 		//ubaceno da ukoliko se ne zavrte kockice ne izbacuje gresku
-		if (dices.get(0).getNumber() == 0)
+		if (dicesCanvas.get(0).getNumber() == 0)
 			return 0;
 		
-		HashMap<Dice, Integer> mapDice = new HashMap<Dice, Integer>();
-		mapDice = saveDicesInMap(dices);
+		HashMap<DiceCanvas, Integer> mapDice = new HashMap<DiceCanvas, Integer>();
+		mapDice = saveDicesInMap(dicesCanvas);
 		int sum = 0;
-		for (Map.Entry<Dice, Integer> e : mapDice.entrySet())
+		for (Map.Entry<DiceCanvas, Integer> e : mapDice.entrySet())
 		{
 			if (e.getValue() >= 4)
 				sum = e.getKey().getNumber() * 4 + 40;
@@ -89,16 +89,16 @@ public class CheckResult
 		return sum;
 	}
 	
-	public static int checkTriling (ArrayList<Dice> dices)
+	public static int checkTriling (ArrayList<DiceCanvas> dicesCanvas)
 	{
 		//ubaceno da ukoliko se ne zavrte kockice ne izbacuje gresku
-		if (dices.get(0).getNumber() == 0)
+		if (dicesCanvas.get(0).getNumber() == 0)
 			return 0;
 		
-		HashMap<Dice, Integer> mapDice = new HashMap<Dice, Integer>();
-		mapDice = saveDicesInMap(dices);
+		HashMap<DiceCanvas, Integer> mapDice = new HashMap<DiceCanvas, Integer>();
+		mapDice = saveDicesInMap(dicesCanvas);
 		int sum = 0;
-		for (Map.Entry<Dice, Integer> e : mapDice.entrySet())
+		for (Map.Entry<DiceCanvas, Integer> e : mapDice.entrySet())
 		{
 			if (e.getValue() >= 3)
 				sum = e.getKey().getNumber() * 3 + 20;
@@ -107,18 +107,18 @@ public class CheckResult
 		return sum;
 	}
 	
-	public static int checkFull (ArrayList<Dice> dices)
+	public static int checkFull (ArrayList<DiceCanvas> dicesCanvas)
 	{
 		//ubaceno da ukoliko se ne zavrte kockice ne izbacuje gresku
-		if (dices.get(0).getNumber() == 0)
+		if (dicesCanvas.get(0).getNumber() == 0)
 			return 0;
 		
-		HashMap<Dice, Integer> mapDice = new HashMap<Dice, Integer>();
-		mapDice = saveDicesInMap(dices);
+		HashMap<DiceCanvas, Integer> mapDice = new HashMap<DiceCanvas, Integer>();
+		mapDice = saveDicesInMap(dicesCanvas);
 		int sum = 0;
 		int sum3 = 0;
 		int sum2 = 0;
-		for (Map.Entry<Dice, Integer> e : mapDice.entrySet())
+		for (Map.Entry<DiceCanvas, Integer> e : mapDice.entrySet())
 		{
 			if (e.getValue() >= 3)
 				sum3 = e.getKey().getNumber() * 3;
@@ -131,10 +131,10 @@ public class CheckResult
 		return sum;
 	}
 	
-	public static int checkKenta (ArrayList<Dice> dices, int numberOfRoll)
+	public static int checkKenta (ArrayList<DiceCanvas> dicesCanvas, int numberOfRoll)
 	{
 		//ubaceno da ukoliko se ne zavrte kockice ne izbacuje gresku
-		if (dices.get(0).getNumber() == 0)
+		if (dicesCanvas.get(0).getNumber() == 0)
 			return 0;
 				
 		int sum = 0;
@@ -142,7 +142,7 @@ public class CheckResult
 		int numberOfDifferent = 0;
 		
 		ArrayList<Integer> niz = new ArrayList<>();
-		niz = countDices(dices);
+		niz = countDices(dicesCanvas);
 		
 		for (int i = 0; i < niz.size(); i++)
 		{
@@ -165,16 +165,16 @@ public class CheckResult
 	}
 	
 	//u nizu kockica proveravamo da li ima odredjeni broj i ako ima racunamo sumu tog istog broja
-	public static int checkNumber (ArrayList<Dice> dices, int number)
+	public static int checkNumber (ArrayList<DiceCanvas> dicesCanvas, int number)
 	{
 		//ubaceno da ukoliko se ne zavrte kockice ne izbacuje gresku
-		if (dices.get(0).getNumber() == 0)
+		if (dicesCanvas.get(0).getNumber() == 0)
 			return 0;
 		
-		HashMap<Dice, Integer> mapDice = new HashMap<Dice, Integer>();
-		mapDice = saveDicesInMap(dices);
+		HashMap<DiceCanvas, Integer> mapDice = new HashMap<DiceCanvas, Integer>();
+		mapDice = saveDicesInMap(dicesCanvas);
 		int sum = 0;
-		for (Map.Entry<Dice, Integer> e : mapDice.entrySet())
+		for (Map.Entry<DiceCanvas, Integer> e : mapDice.entrySet())
 		{
 			if (e.getKey().getNumber() == number)
 				sum += e.getKey().getNumber();

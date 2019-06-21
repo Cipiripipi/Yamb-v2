@@ -22,13 +22,12 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import yamb.ButtonField;
 import yamb.CheckResult;
-import yamb.Dice;
+import yamb.DiceCanvas;
 import yamb.YambForm;
 
 public class Column 
 {
 	private VBox vb = new VBox();
-	private Background background0 = new Background(new BackgroundImage(new Image("Kockice/Kockica.png"), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT));
 	
 	protected ButtonField b = new ButtonField("");
 	 
@@ -56,7 +55,7 @@ public class Column
 	
 	protected ArrayList<ButtonField> nizButtona = new ArrayList<>();
 	
-	public Column (ArrayList<Dice> dices, Button roll, ArrayList<CheckBox> chk)
+	public Column (ArrayList<DiceCanvas> dicesCanvas, Button roll, ArrayList<CheckBox> chk)
 	{
 		//setujemo polja koja trebaju da budu disablovana
 		b.setDisable(true);
@@ -71,48 +70,48 @@ public class Column
 		
 		
 		kenta.setOnAction(e -> {
-				YambForm.pickDices(dices, chk);
-				kenta.setText(String.valueOf(CheckResult.checkKenta(dices, YambForm.getBrojPokusaja())));
+				YambForm.pickDices(dicesCanvas, chk);
+				kenta.setText(String.valueOf(CheckResult.checkKenta(dicesCanvas, YambForm.getBrojPokusaja())));
 				kenta.setDisable(true);
-				resetAfter3roll(dices, roll, chk);
+				resetAfter3roll(dicesCanvas, roll, chk);
 		});
 		
 		triling.setOnAction(e -> {
 				
-				YambForm.pickDices(dices, chk);
-				triling.setText(String.valueOf(CheckResult.checkTriling(dices)));
+				YambForm.pickDices(dicesCanvas, chk);
+				triling.setText(String.valueOf(CheckResult.checkTriling(dicesCanvas)));
 				triling.setDisable(true);
-				resetAfter3roll(dices, roll, chk);
+				resetAfter3roll(dicesCanvas, roll, chk);
 		});
 		
 		full.setOnAction(e -> {
-				YambForm.pickDices(dices, chk);
-				full.setText(String.valueOf(CheckResult.checkFull(dices)));
+				YambForm.pickDices(dicesCanvas, chk);
+				full.setText(String.valueOf(CheckResult.checkFull(dicesCanvas)));
 				full.setDisable(true);
-				resetAfter3roll(dices, roll, chk);
+				resetAfter3roll(dicesCanvas, roll, chk);
 		});
 		
 		poker.setOnAction(e -> {
-				YambForm.pickDices(dices, chk);
-				poker.setText(String.valueOf(CheckResult.checkPoker(dices)));
+				YambForm.pickDices(dicesCanvas, chk);
+				poker.setText(String.valueOf(CheckResult.checkPoker(dicesCanvas)));
 				poker.setDisable(true);
-				resetAfter3roll(dices, roll, chk);
+				resetAfter3roll(dicesCanvas, roll, chk);
 		});
 		
 		yamb.setOnAction(e -> {
-				YambForm.pickDices(dices, chk);
-				yamb.setText(String.valueOf(CheckResult.checkYamb(dices)));
+				YambForm.pickDices(dicesCanvas, chk);
+				yamb.setText(String.valueOf(CheckResult.checkYamb(dicesCanvas)));
 				yamb.setDisable(true);
-				resetAfter3roll(dices, roll, chk);
+				resetAfter3roll(dicesCanvas, roll, chk);
 		});
 		
 		max.setOnAction(e -> {
-			YambForm.pickDices(dices, chk);
-			if (numberOfSelectedDices(dices) == 5)
+			YambForm.pickDices(dicesCanvas, chk);
+			if (numberOfSelectedDices(dicesCanvas) == 5)
 			{
-				max.setText(String.valueOf(sumMaxMin(dices)));
+				max.setText(String.valueOf(sumMaxMin(dicesCanvas)));
 				max.setDisable(true);
-				resetAfter3roll(dices, roll, chk);
+				resetAfter3roll(dicesCanvas, roll, chk);
 			}
 			else
 			{
@@ -124,12 +123,12 @@ public class Column
 		});
 		
 		min.setOnAction(e -> {
-			YambForm.pickDices(dices, chk);
-			if (numberOfSelectedDices(dices) == 5)
+			YambForm.pickDices(dicesCanvas, chk);
+			if (numberOfSelectedDices(dicesCanvas) == 5)
 			{
-				min.setText(String.valueOf(sumMaxMin(dices)));
+				min.setText(String.valueOf(sumMaxMin(dicesCanvas)));
 				min.setDisable(true);
-				resetAfter3roll(dices, roll, chk);
+				resetAfter3roll(dicesCanvas, roll, chk);
 			}
 			else
 			{
@@ -141,45 +140,45 @@ public class Column
 		});
 		
 		b1.setOnAction(e-> {
-			YambForm.pickDices(dices, chk);
-			b1.setText(String.valueOf(CheckResult.checkNumber(dices, 1)));
+			YambForm.pickDices(dicesCanvas, chk);
+			b1.setText(String.valueOf(CheckResult.checkNumber(dicesCanvas, 1)));
 			b1.setDisable(true);
-			resetAfter3roll(dices, roll, chk);
+			resetAfter3roll(dicesCanvas, roll, chk);
 		});
 		
 		b2.setOnAction(e-> {
-			YambForm.pickDices(dices, chk);
-			b2.setText(String.valueOf(CheckResult.checkNumber(dices, 2)));
+			YambForm.pickDices(dicesCanvas, chk);
+			b2.setText(String.valueOf(CheckResult.checkNumber(dicesCanvas, 2)));
 			b2.setDisable(true);
-			resetAfter3roll(dices, roll, chk);
+			resetAfter3roll(dicesCanvas, roll, chk);
 		});
 		
 		b3.setOnAction(e-> {
-			YambForm.pickDices(dices, chk);
-			b3.setText(String.valueOf(CheckResult.checkNumber(dices, 3)));
+			YambForm.pickDices(dicesCanvas, chk);
+			b3.setText(String.valueOf(CheckResult.checkNumber(dicesCanvas, 3)));
 			b3.setDisable(true);
-			resetAfter3roll(dices, roll, chk);
+			resetAfter3roll(dicesCanvas, roll, chk);
 		});
 		
 		b4.setOnAction(e-> {
-			YambForm.pickDices(dices, chk);
-			b4.setText(String.valueOf(CheckResult.checkNumber(dices, 4)));
+			YambForm.pickDices(dicesCanvas, chk);
+			b4.setText(String.valueOf(CheckResult.checkNumber(dicesCanvas, 4)));
 			b4.setDisable(true);
-			resetAfter3roll(dices, roll, chk);
+			resetAfter3roll(dicesCanvas, roll, chk);
 		});
 		
 		b5.setOnAction(e-> {
-			YambForm.pickDices(dices, chk);
-			b5.setText(String.valueOf(CheckResult.checkNumber(dices, 5)));
+			YambForm.pickDices(dicesCanvas, chk);
+			b5.setText(String.valueOf(CheckResult.checkNumber(dicesCanvas, 5)));
 			b5.setDisable(true);
-			resetAfter3roll(dices, roll, chk);
+			resetAfter3roll(dicesCanvas, roll, chk);
 		});
 		
 		b6.setOnAction(e-> {
-			YambForm.pickDices(dices, chk);
-			b6.setText(String.valueOf(CheckResult.checkNumber(dices, 6)));
+			YambForm.pickDices(dicesCanvas, chk);
+			b6.setText(String.valueOf(CheckResult.checkNumber(dicesCanvas, 6)));
 			b6.setDisable(true);
-			resetAfter3roll(dices, roll, chk);
+			resetAfter3roll(dicesCanvas, roll, chk);
 		});
 		
 		//ubacujemo u niz buttone da bi kasnije lakse mogli da definisemo rule za upis rezultata (preko for petlje) u suprotnom bi morali rucno da pisemo za svako polje
@@ -209,15 +208,15 @@ public class Column
 	}
 	
 	//nakon 3 bacanja kockice i upisa rezultata bacanje je ponovo omoguceno i kockice su podesene na 0 kao i svi checkboxovi su odcekirani
-	protected void resetAfter3roll(ArrayList<Dice> dices, Button roll, ArrayList<CheckBox> chk)
+	protected void resetAfter3roll(ArrayList<DiceCanvas> dicesCanvas, Button roll, ArrayList<CheckBox> chk)
 	{
 		YambForm.setBrojPokusaja(0);
 		roll.setDisable(false);
 		
-		for (Dice dice : dices) 
+		for (DiceCanvas diceCanvas : dicesCanvas) 
 		{
-			Platform.runLater(() -> dice.setNumber(0));//pri svakom resetu setovane kockice na 0, u suprotnom bi mogli vise puta da upisujemo isti rezultat (jer ostaju upamcenje poslednje kockice)
-			Platform.runLater(() -> dice.setBackground(background0));//setujemo "praznu" kockicu
+			Platform.runLater(() -> diceCanvas.setNumber(0));//pri svakom resetu setovane kockice na 0, u suprotnom bi mogli vise puta da upisujemo isti rezultat (jer ostaju upamcenje poslednje kockice)
+			//Platform.runLater(() -> diceCanvas.setBackground(background0));//setujemo "praznu" kockicu
 		}
 		for (CheckBox c : chk)
 		{
@@ -225,10 +224,10 @@ public class Column
 		}
 	}
 	//broj obelezenih kockica, potrebno je prilikom upisa max i min
-	protected int numberOfSelectedDices (ArrayList<Dice> dices)
+	protected int numberOfSelectedDices (ArrayList<DiceCanvas> dicesCanvas)
 	{
 		int b = 0;
-		for (Dice d : dices) 
+		for (DiceCanvas d : dicesCanvas) 
 		{
 			if (d.isSelected() == true)
 				b++;
@@ -236,13 +235,13 @@ public class Column
 		return b;
 	}
 	//sabira kockice, potrebno je prilikom upisa max i min
-	protected int sumMaxMin(ArrayList<Dice> dices)
+	protected int sumMaxMin(ArrayList<DiceCanvas> dicesCanvas)
 	{
 		int sum = 0;
-		if (numberOfSelectedDices(dices) == 5)
-			for (Dice dice : dices) 
-				if (dice.isSelected() == true)
-					sum += dice.getNumber();
+		if (numberOfSelectedDices(dicesCanvas) == 5)
+			for (DiceCanvas diceCanvas : dicesCanvas) 
+				if (diceCanvas.isSelected() == true)
+					sum += diceCanvas.getNumber();
 		return sum;
 	}
 	

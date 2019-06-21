@@ -10,14 +10,14 @@ import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
-import yamb.Dice;
+import yamb.DiceCanvas;
 
 public class ColumnHand extends Column 
 {
 
-	public ColumnHand(ArrayList<Dice> dices, Button roll, ArrayList<CheckBox> chk) 
+	public ColumnHand(ArrayList<DiceCanvas> dicesCanvas, Button roll, ArrayList<CheckBox> chk) 
 	{
-		super(dices, roll, chk);
+		super(dicesCanvas, roll, chk);
 		Image diceImage = new Image("Kockice/ColumnHand.png");
 	    BackgroundImage backgroundImage = new BackgroundImage(diceImage, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
         Background background = new Background(backgroundImage);

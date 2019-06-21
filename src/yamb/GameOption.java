@@ -27,6 +27,12 @@ public class GameOption
 	private RadioButton rb2 = new RadioButton("RED");
 	private RadioButton rb3 = new RadioButton("GREEN");
 	private RadioButton rb4 = new RadioButton("PURPLE");
+	private RadioButton rb5 = new RadioButton("YELOW");
+	private RadioButton rb6 = new RadioButton("PINK");
+	private RadioButton rb7 = new RadioButton("BLUE");
+	private RadioButton rb8 = new RadioButton("CYAN");
+	private RadioButton rb9 = new RadioButton("GOLD");
+	private RadioButton rb10 = new RadioButton("DEEP PINK");
 	
 	private ToggleGroup tg = new ToggleGroup();
 	
@@ -38,7 +44,7 @@ public class GameOption
 		GridPane gp = new GridPane();
 		gp.setVgap(5);
 		gp.setHgap(5);
-		gp.setPadding(new Insets(5, 5, 5, 5));
+		gp.setPadding(new Insets(3, 5, 3, 5));
 		
 		Label label1 = new Label("PICK COLUMN");
 		Label label2 = new Label("SELECT COLOR OF DICE");
@@ -47,11 +53,23 @@ public class GameOption
 		rb2.setUserData("red");
 		rb3.setUserData("green");
 		rb4.setUserData("purple");
+		rb5.setUserData("yelow");
+		rb6.setUserData("pink");
+		rb7.setUserData("blue");
+		rb8.setUserData("cyan");
+		rb9.setUserData("gold");
+		rb10.setUserData("deeppink");
 		
 		rb1.setToggleGroup(tg);
 		rb2.setToggleGroup(tg);
 		rb3.setToggleGroup(tg);
 		rb4.setToggleGroup(tg);
+		rb5.setToggleGroup(tg);
+		rb6.setToggleGroup(tg);
+		rb7.setToggleGroup(tg);
+		rb8.setToggleGroup(tg);
+		rb9.setToggleGroup(tg);
+		rb10.setToggleGroup(tg);
 		
 		gp.add(label1, 0, 0);
 		
@@ -61,8 +79,8 @@ public class GameOption
 		gp.add(cb4, 0, 4);
 		gp.add(cb5, 0, 5);
 		//gp.add(cb6, 0, 6);
-		gp.add(cb7, 0, 7);
-		gp.add(cb8, 0, 8);
+		gp.add(cb7, 0, 6);
+		gp.add(cb8, 0, 7);
 		
 		gp.add(label2, 1, 0);
 		
@@ -70,6 +88,12 @@ public class GameOption
 		gp.add(rb2, 1, 2);
 		gp.add(rb3, 1, 3);
 		gp.add(rb4, 1, 4);
+		gp.add(rb5, 1, 5);
+		gp.add(rb6, 1, 6);
+		gp.add(rb7, 1, 7);
+		gp.add(rb8, 1, 8);
+		gp.add(rb9, 1, 9);
+		gp.add(rb10, 1, 10);
 		
 		selectAll.setAlignment(Pos.CENTER);
 		selectAll.setPrefSize(90, 30);
@@ -92,7 +116,7 @@ public class GameOption
 		gp.add(ok, 0, 11);
 		GridPane.setColumnSpan(ok, 2);
 		
-		scene = new Scene(gp, 400, 400);
+		scene = new Scene(gp, 400, 550);
 	}
 
 	public Scene getScene() {return scene;}

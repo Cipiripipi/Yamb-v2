@@ -11,46 +11,46 @@ import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
 import yamb.CheckResult;
-import yamb.Dice;
+import yamb.DiceCanvas;
 
 public class ColumnMax extends Column 
 {
 	
-	public ColumnMax(ArrayList<Dice> dices, Button roll, ArrayList<CheckBox> chk) 
+	public ColumnMax(ArrayList<DiceCanvas> dicesCanvas, Button roll, ArrayList<CheckBox> chk) 
 	{
-		super(dices, roll, chk);
+		super(dicesCanvas, roll, chk);
 		Image diceImage = new Image("Kockice/ColumnMax.png");
 	    BackgroundImage backgroundImage = new BackgroundImage(diceImage, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
         Background background = new Background(backgroundImage);
         b.setBackground(background);
 
 		b1.setOnMouseReleased(e -> {
-			if (CheckResult.checkNumber(dices, 1) != 5)
+			if (CheckResult.checkNumber(dicesCanvas, 1) != 5)
 				b1.setText("0");
 		});
 		
 		b2.setOnMouseReleased(e -> {
-			if (CheckResult.checkNumber(dices, 2) != 10)
+			if (CheckResult.checkNumber(dicesCanvas, 2) != 10)
 				b2.setText("0");
 		});
 		
 		b3.setOnMouseReleased(e -> {
-			if (CheckResult.checkNumber(dices, 3) != 15)
+			if (CheckResult.checkNumber(dicesCanvas, 3) != 15)
 				b3.setText("0");
 		});
 		
 		b4.setOnMouseReleased(e -> {
-			if (CheckResult.checkNumber(dices, 4) != 20)
+			if (CheckResult.checkNumber(dicesCanvas, 4) != 20)
 				b4.setText("0");
 		});
 		
 		b5.setOnMouseReleased(e -> {
-			if (CheckResult.checkNumber(dices, 5) != 25)
+			if (CheckResult.checkNumber(dicesCanvas, 5) != 25)
 				b5.setText("0");
 		});
 		
 		b6.setOnMouseReleased(e -> {
-			if (CheckResult.checkNumber(dices, 6) != 30)
+			if (CheckResult.checkNumber(dicesCanvas, 6) != 30)
 				b6.setText("0");
 		});
 		
@@ -61,22 +61,22 @@ public class ColumnMax extends Column
 		});
 		
 		triling.setOnMouseReleased(e -> {
-			if (CheckResult.checkTriling(dices) != 38)
+			if (CheckResult.checkTriling(dicesCanvas) != 38)
 				triling.setText("0");
 		});
 		
 		full.setOnMouseReleased(e -> {
-			if (CheckResult.checkFull(dices) != 58)
+			if (CheckResult.checkFull(dicesCanvas) != 58)
 				full.setText("0");
 		});
 		
 		poker.setOnMouseReleased(e -> {
-			if (CheckResult.checkPoker(dices) != 64)
+			if (CheckResult.checkPoker(dicesCanvas) != 64)
 				poker.setText("0");
 		});
 		
 		yamb.setOnMouseReleased(e -> {
-			if (CheckResult.checkYamb(dices) != 80)
+			if (CheckResult.checkYamb(dicesCanvas) != 80)
 				yamb.setText("0");
 		});
 		
