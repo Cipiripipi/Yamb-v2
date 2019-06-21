@@ -27,7 +27,7 @@ public class GameOption
 	private RadioButton rb2 = new RadioButton("RED");
 	private RadioButton rb3 = new RadioButton("GREEN");
 	private RadioButton rb4 = new RadioButton("PURPLE");
-	private RadioButton rb5 = new RadioButton("YELOW");
+	private RadioButton rb5 = new RadioButton("YELLOW");
 	private RadioButton rb6 = new RadioButton("PINK");
 	private RadioButton rb7 = new RadioButton("BLUE");
 	private RadioButton rb8 = new RadioButton("CYAN");
@@ -53,7 +53,7 @@ public class GameOption
 		rb2.setUserData("red");
 		rb3.setUserData("green");
 		rb4.setUserData("purple");
-		rb5.setUserData("yelow");
+		rb5.setUserData("yellow");
 		rb6.setUserData("pink");
 		rb7.setUserData("blue");
 		rb8.setUserData("cyan");

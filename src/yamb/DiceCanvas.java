@@ -25,6 +25,7 @@ public class DiceCanvas extends Canvas
 		gc.setLineWidth(2);
 		gc.strokeRect(0, 0, 70, 70);
 		gc.setFill(Color.valueOf(color));
+		
 	}
 	
 	public void drawDice (int number)

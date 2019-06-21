@@ -2,6 +2,7 @@ package yamb;
 
 import java.util.ArrayList;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -34,9 +35,9 @@ public class YambForm
 	private ArrayList<CheckBox> chk = new ArrayList<>();
 	private static int brojPokusaja = 0;
 	private ArrayList<DiceCanvas> dicesCanvas = new ArrayList<>();
-	
+		
 	private Button roll = new Button("ROLL");
-	
+	ColumnFieldName columnFieldName = new ColumnFieldName();
 	ColumnFromTop columnFromTop = new ColumnFromTop(dicesCanvas, roll, chk);
 	Column columnFree = new Column(dicesCanvas, roll, chk);
 	ColumnFromBottom columnFromBottom = new ColumnFromBottom(dicesCanvas, roll, chk);
@@ -48,8 +49,12 @@ public class YambForm
 	
 	private ArrayList<Column> listCheckedColumn = new ArrayList<>();
 	
+	private int selectedDiceNumber;
+	public static int remaningMoves;
+	
 	public YambForm(GameOption go) 
 	{
+		Platform.runLater(() -> checkThisDice());
 		
 		// GLAVNO
 		VBox vbox = new VBox();
@@ -109,14 +114,17 @@ public class YambForm
 
 						dicesCanvas.get(i).setNumber(dicesCanvas.get(i).rollDice());
 						dicesCanvas.get(i).showDice(dicesCanvas.get(i));
-						System.out.println(dicesCanvas.get(i).getNumber());
 					}
 				}
-				System.out.println("***********");
 			}
 
-			if (brojPokusaja >= 3) 
+			if (brojPokusaja >= 3)
+			{
 				roll.setDisable(true);
+				
+			}
+			
+			Platform.runLater(() -> columnFieldName.b.setText(String.valueOf(remaningMoves)));
 		});
 
 		vbox.getChildren().add(roll);
@@ -124,7 +132,7 @@ public class YambForm
 		//Za pakovanje kolona
 		GridPane gpColumn = new GridPane();
 		
-		gpColumn.add(new ColumnFieldName().getVb(), 0, 0);
+		gpColumn.add(columnFieldName.getVb(), 0, 0);
 		
 		if (go.getCb1().isSelected())
 		{
@@ -168,13 +176,13 @@ public class YambForm
 			listCheckedColumn.add(columnMax);
 		}
 		
-		
 		gpColumn.add(columnSum.getVb(), 8, 0);
-		
-		
 		gpColumn.setAlignment(Pos.CENTER);
 		
 		vbox.getChildren().add(gpColumn);
+		
+		remaningMoves = listCheckedColumn.size() * 13;
+		columnFieldName.b.setText(String.valueOf(remaningMoves));
 		
 		Button result = new Button("Calculate result");
 		result.setOnAction(e -> calculateResult());
@@ -235,8 +243,25 @@ public class YambForm
 		}
 	}
 	
+	private void checkThisDice() 
+	{
+		for (DiceCanvas d : dicesCanvas) 
+		{
+			d.setOnMousePressed(e -> {
+				selectedDiceNumber = d.getNumber();
+				for (int i = 0; i < dicesCanvas.size(); i++) 
+				{
+					if (dicesCanvas.get(i).getNumber() == selectedDiceNumber)
+						chk.get(i).setSelected(true);
+					else
+						chk.get(i).setSelected(false);
+				}
+			});
+		}
+	}
+	
 	public Scene getScene() {return scene;}
 	public static int getBrojPokusaja() {return brojPokusaja;}
 	public static void setBrojPokusaja(int brojPokusaja) {YambForm.brojPokusaja = brojPokusaja;}
-
+	
 }

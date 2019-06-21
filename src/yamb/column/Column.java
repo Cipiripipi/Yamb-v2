@@ -68,7 +68,6 @@ public class Column
 		zMaxMin.setDisable(true);
 		zKentaYamb.setDisable(true);
 		
-		
 		kenta.setOnAction(e -> {
 				YambForm.pickDices(dicesCanvas, chk);
 				kenta.setText(String.valueOf(CheckResult.checkKenta(dicesCanvas, YambForm.getBrojPokusaja())));
@@ -211,12 +210,13 @@ public class Column
 	protected void resetAfter3roll(ArrayList<DiceCanvas> dicesCanvas, Button roll, ArrayList<CheckBox> chk)
 	{
 		YambForm.setBrojPokusaja(0);
+		YambForm.remaningMoves--;
 		roll.setDisable(false);
 		
 		for (DiceCanvas diceCanvas : dicesCanvas) 
 		{
 			Platform.runLater(() -> diceCanvas.setNumber(0));//pri svakom resetu setovane kockice na 0, u suprotnom bi mogli vise puta da upisujemo isti rezultat (jer ostaju upamcenje poslednje kockice)
-			//Platform.runLater(() -> diceCanvas.setBackground(background0));//setujemo "praznu" kockicu
+			Platform.runLater(() -> diceCanvas.drawDice(0));//setujemo "praznu" kockicu
 		}
 		for (CheckBox c : chk)
 		{
