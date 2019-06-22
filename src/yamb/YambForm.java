@@ -51,10 +51,13 @@ public class YambForm
 	
 	private int selectedDiceNumber;
 	public static int remaningMoves;
+	public static Button remaningMovesButton = new Button();
 	
 	public YambForm(GameOption go) 
 	{
-		Platform.runLater(() -> checkThisDice());
+		Platform.runLater(() -> {
+			checkThisDice();
+			});
 		
 		// GLAVNO
 		VBox vbox = new VBox();
@@ -99,7 +102,7 @@ public class YambForm
 		VBox.setMargin(roll, new Insets(5, 0, 20, 185));
 
 		roll.setOnAction((ActionEvent event) -> {
-			
+			checkForHandColumn();
 			columnHand.ruleForHand();
 			columnHand.ruleForHandResetEmptyField();
 			calculateResult();
@@ -111,7 +114,6 @@ public class YambForm
 				{
 					if (chk.get(i).isSelected() == false) 
 					{
-
 						dicesCanvas.get(i).setNumber(dicesCanvas.get(i).rollDice());
 						dicesCanvas.get(i).showDice(dicesCanvas.get(i));
 					}
@@ -121,10 +123,7 @@ public class YambForm
 			if (brojPokusaja >= 3)
 			{
 				roll.setDisable(true);
-				
 			}
-			
-			Platform.runLater(() -> columnFieldName.b.setText(String.valueOf(remaningMoves)));
 		});
 
 		vbox.getChildren().add(roll);
@@ -182,13 +181,16 @@ public class YambForm
 		vbox.getChildren().add(gpColumn);
 		
 		remaningMoves = listCheckedColumn.size() * 13;
-		columnFieldName.b.setText(String.valueOf(remaningMoves));
 		
 		Button result = new Button("Calculate result");
 		result.setOnAction(e -> calculateResult());
 		
 		HBox boxResult = new HBox(10);
 		boxResult.getChildren().add(result);
+		remaningMovesButton.setDisable(true);
+		remaningMovesButton.setPrefWidth(50);
+		remaningMovesButton.setText(String.valueOf(remaningMoves));
+		boxResult.getChildren().add(remaningMovesButton);
 		boxResult.setAlignment(Pos.CENTER);
 		
 		vbox.getChildren().add(boxResult);
@@ -258,6 +260,22 @@ public class YambForm
 				}
 			});
 		}
+	}
+	//ako sva polja osim u rucnoj budu popunjena nakon prvog bacanja kockice disablovati novo bacanje kockice da bi korisnik mogao da popuni polje u hand koloni
+	public void checkForHandColumn()
+	{
+		int brojacPrazniPolja = 0;
+		//cim nadje prvo prazno polje koje nije u coloni hand prekida pretragu
+		for (int i = 0; i < listCheckedColumn.size() && brojacPrazniPolja == 0; i++)
+		{
+			for(ButtonField button : listCheckedColumn.get(i).getNizButtona())
+			{
+				if (button.getText().equalsIgnoreCase("") && (listCheckedColumn.get(i) instanceof ColumnHand) == false)
+					brojacPrazniPolja++;
+			}
+		}
+		if (brojacPrazniPolja == 0)
+			roll.setDisable(true);
 	}
 	
 	public Scene getScene() {return scene;}

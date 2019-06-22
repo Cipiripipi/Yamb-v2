@@ -12,11 +12,11 @@ import yamb.ButtonFieldName;
 public class ColumnFieldName 
 {
 	private VBox vb = new VBox();
-	public ButtonFieldName b = new ButtonFieldName("");
+	
 	
 	public ColumnFieldName ()
 	{
-		
+		ButtonFieldName b = new ButtonFieldName("");
 		b.setPrefSize(60, 50);
 		
 		ButtonFieldName b1 = new ButtonFieldName("1");

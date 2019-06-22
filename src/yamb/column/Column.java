@@ -114,6 +114,7 @@ public class Column
 			}
 			else
 			{
+				YambForm.remaningMoves++;
 				Alert alert = new Alert(AlertType.INFORMATION);
 				alert.setTitle("Information Dialog");
 				alert.setHeaderText("You must select 5 dice");
@@ -131,6 +132,7 @@ public class Column
 			}
 			else
 			{
+				YambForm.remaningMoves++;
 				Alert alert = new Alert(AlertType.INFORMATION);
 				alert.setTitle("Information Dialog");
 				alert.setHeaderText("You must select 5 dice");
@@ -210,7 +212,7 @@ public class Column
 	protected void resetAfter3roll(ArrayList<DiceCanvas> dicesCanvas, Button roll, ArrayList<CheckBox> chk)
 	{
 		YambForm.setBrojPokusaja(0);
-		YambForm.remaningMoves--;
+		//YambForm.remaningMoves--;
 		roll.setDisable(false);
 		
 		for (DiceCanvas diceCanvas : dicesCanvas) 
@@ -309,4 +311,7 @@ public class Column
 	public ButtonField getFull() {return full;}
 	public ButtonField getPoker() {return poker;}
 	public ButtonField getYamb() {return yamb;}
+	public ArrayList<ButtonField> getNizButtona() {return nizButtona;}
+
+	
 }
