@@ -4,13 +4,8 @@ import java.util.ArrayList;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
-import javafx.scene.image.Image;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundImage;
-import javafx.scene.layout.BackgroundPosition;
-import javafx.scene.layout.BackgroundRepeat;
-import javafx.scene.layout.BackgroundSize;
 import yamb.DiceCanvas;
+import yamb.YambForm;
 
 public class ColumnHand extends Column 
 {
@@ -18,10 +13,24 @@ public class ColumnHand extends Column
 	public ColumnHand(ArrayList<DiceCanvas> dicesCanvas, Button roll, ArrayList<CheckBox> chk) 
 	{
 		super(dicesCanvas, roll, chk);
-		Image diceImage = new Image("Kockice/ColumnHand.png");
-	    BackgroundImage backgroundImage = new BackgroundImage(diceImage, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
-        Background background = new Background(backgroundImage);
-        b.setBackground(background);
+		this.setImageForColumn("Kockice/ColumnHand.png", "H");
+	}
+	
+	//nakon prvog bacanja kockice polja u koloni hand postavljamo na true. Pozivamo prilikom bacanja kockica
+	public void ruleForHand()
+	{
+		if (YambForm.getBrojPokusaja() > 0)
+			for (Button button : nizButtona) 
+				button.setDisable(true);
+	}
+		
+	//pri prvom bacanju vracamo polja u koloni hand koja su prazna na enable. Pozivamo prilikom bacanja kockica
+	public void ruleForHandResetEmptyField()
+	{
+		if (YambForm.getBrojPokusaja() == 0)
+			for (Button button : nizButtona)
+				if (button.getText() == "" )
+					button.setDisable(false);
 	}
 
 }

@@ -1,5 +1,7 @@
 package yamb;
 
+import java.util.ArrayList;
+
 import javafx.scene.control.Button;
 
 public class SumResult 
@@ -41,4 +43,16 @@ public class SumResult
 			}
 		return sum;
 	}
+
+	//sabira kockice koje su selektovane da bi se upisalo u polje max ili min
+	public static int sumMaxMinDice(ArrayList<DiceCanvas> dicesCanvas, int numberOfSelectedDices)
+	{
+		int sum = 0;
+		if (numberOfSelectedDices == 5)
+			for (DiceCanvas diceCanvas : dicesCanvas) 
+				if (diceCanvas.isSelected() == true)
+					sum += diceCanvas.getNumber();
+		return sum;
+	}
+	
 }

@@ -1,7 +1,6 @@
 package yamb;
 
 import java.util.ArrayList;
-
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
@@ -20,6 +19,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import yamb.column.Column;
 import yamb.column.ColumnFieldName;
+import yamb.column.ColumnFree;
 import yamb.column.ColumnFromBottom;
 import yamb.column.ColumnFromMiddle;
 import yamb.column.ColumnFromTop;
@@ -37,15 +37,15 @@ public class YambForm
 	private ArrayList<DiceCanvas> dicesCanvas = new ArrayList<>();
 		
 	private Button roll = new Button("ROLL");
-	ColumnFieldName columnFieldName = new ColumnFieldName();
-	ColumnFromTop columnFromTop = new ColumnFromTop(dicesCanvas, roll, chk);
-	Column columnFree = new Column(dicesCanvas, roll, chk);
-	ColumnFromBottom columnFromBottom = new ColumnFromBottom(dicesCanvas, roll, chk);
-	ColumnFromMiddle columnFromMiddle = new ColumnFromMiddle(dicesCanvas, roll, chk);
-	ColumnFromTopAndBottomToMiddle columnFromTopAndBottomToMiddle = new ColumnFromTopAndBottomToMiddle(dicesCanvas, roll, chk);
-	ColumnHand columnHand = new ColumnHand(dicesCanvas, roll, chk);
-	ColumnMax columnMax = new ColumnMax(dicesCanvas, roll, chk);
-	ColumnSum columnSum = new ColumnSum();
+	private ColumnFieldName columnFieldName = new ColumnFieldName();
+	private ColumnFromTop columnFromTop = new ColumnFromTop(dicesCanvas, roll, chk);
+	private ColumnFree columnFree = new ColumnFree(dicesCanvas, roll, chk);
+	private ColumnFromBottom columnFromBottom = new ColumnFromBottom(dicesCanvas, roll, chk);
+	private ColumnFromMiddle columnFromMiddle = new ColumnFromMiddle(dicesCanvas, roll, chk);
+	private ColumnFromTopAndBottomToMiddle columnFromTopAndBottomToMiddle = new ColumnFromTopAndBottomToMiddle(dicesCanvas, roll, chk);
+	private ColumnHand columnHand = new ColumnHand(dicesCanvas, roll, chk);
+	private ColumnMax columnMax = new ColumnMax(dicesCanvas, roll, chk);
+	private ColumnSum columnSum = new ColumnSum();
 	
 	private ArrayList<Column> listCheckedColumn = new ArrayList<>();
 	
@@ -55,9 +55,7 @@ public class YambForm
 	
 	public YambForm(GameOption go) 
 	{
-		Platform.runLater(() -> {
-			checkThisDice();
-			});
+		Platform.runLater(() -> checkThisDice());
 		
 		// GLAVNO
 		VBox vbox = new VBox();
@@ -66,10 +64,11 @@ public class YambForm
 		// GP ZA KOCKICE I CHECK
 		GridPane gp1 = new GridPane();
 		gp1.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, new CornerRadii(2), new BorderWidths(1))));
-		
 		gp1.setVgap(10);
 		gp1.setHgap(10);
 		gp1.setPadding(new Insets(5, 10, 5, 50));
+		
+		//pakujemo kockice i check boxove
 		for (int i = 0; i < 6; i++) 
 		{
 			if (go.getTg().getSelectedToggle() != null) 
@@ -103,8 +102,6 @@ public class YambForm
 
 		roll.setOnAction((ActionEvent event) -> {
 			checkForHandColumn();
-			columnHand.ruleForHand();
-			columnHand.ruleForHandResetEmptyField();
 			calculateResult();
 			
 			if (brojPokusaja <= 2)
@@ -121,9 +118,8 @@ public class YambForm
 			}
 
 			if (brojPokusaja >= 3)
-			{
 				roll.setDisable(true);
-			}
+			
 		});
 
 		vbox.getChildren().add(roll);
@@ -181,15 +177,11 @@ public class YambForm
 		vbox.getChildren().add(gpColumn);
 		
 		remaningMoves = listCheckedColumn.size() * 13;
-		
-		Button result = new Button("Calculate result");
-		result.setOnAction(e -> calculateResult());
-		
-		HBox boxResult = new HBox(10);
-		boxResult.getChildren().add(result);
 		remaningMovesButton.setDisable(true);
 		remaningMovesButton.setPrefWidth(50);
 		remaningMovesButton.setText(String.valueOf(remaningMoves));
+		
+		HBox boxResult = new HBox(10);
 		boxResult.getChildren().add(remaningMovesButton);
 		boxResult.setAlignment(Pos.CENTER);
 		
@@ -223,13 +215,14 @@ public class YambForm
 		{
 			if (c.getZ16().getText() != "")
 				sumZ16 += Integer.valueOf(c.getZ16().getText());
+			c.getZ16().setText(String.valueOf(SumResult.sumNumber(c.getB1(), c.getB2(), c.getB3(), c.getB4(), c.getB5(), c.getB6())));
+			
 			if (c.getzMaxMin().getText() != "")
 				sumZMaxMin += Integer.valueOf(c.getzMaxMin().getText());
+			c.getzMaxMin().setText(String.valueOf(SumResult.sumMaxMin(c.getMax(), c.getMin(), c.getB1())));
+			
 			if (c.getzKentaYamb().getText() != "")
 				sumZKentaYamb += Integer.valueOf(c.getzKentaYamb().getText());
-			
-			c.getZ16().setText(String.valueOf(SumResult.sumNumber(c.getB1(), c.getB2(), c.getB3(), c.getB4(), c.getB5(), c.getB6())));
-			c.getzMaxMin().setText(String.valueOf(SumResult.sumMaxMin(c.getMax(), c.getMin(), c.getB1())));
 			c.getzKentaYamb().setText(String.valueOf(SumResult.sumKentaYamb(c.getKenta(), c.getTriling(), c.getFull(), c.getPoker(), c.getYamb())));
 		}
 		//sabiramo sumu za red sumZ16, sumZMaxMin i sumZKentaYamb
@@ -245,6 +238,7 @@ public class YambForm
 		}
 	}
 	
+	//kada se klikne na neku kockicu stiklira sve kockice sa istom vrednoscu a ostale kockice odstiklira
 	private void checkThisDice() 
 	{
 		for (DiceCanvas d : dicesCanvas) 
@@ -264,8 +258,10 @@ public class YambForm
 	//ako sva polja osim u rucnoj budu popunjena nakon prvog bacanja kockice disablovati novo bacanje kockice da bi korisnik mogao da popuni polje u hand koloni
 	public void checkForHandColumn()
 	{
+		columnHand.ruleForHand();
+		columnHand.ruleForHandResetEmptyField();
 		int brojacPrazniPolja = 0;
-		//cim nadje prvo prazno polje koje nije u coloni hand prekida pretragu
+		//cim nadje prvo prazno polje koje nije u koloni hand prekida pretragu
 		for (int i = 0; i < listCheckedColumn.size() && brojacPrazniPolja == 0; i++)
 		{
 			for(ButtonField button : listCheckedColumn.get(i).getNizButtona())

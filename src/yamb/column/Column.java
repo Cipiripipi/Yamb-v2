@@ -1,7 +1,6 @@
 package yamb.column;
 
 import java.util.ArrayList;
-
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -20,12 +19,14 @@ import javafx.scene.layout.BorderWidths;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import yamb.ButtonField;
 import yamb.CheckResult;
 import yamb.DiceCanvas;
+import yamb.SumResult;
 import yamb.YambForm;
 
-public class Column 
+public abstract class Column 
 {
 	private VBox vb = new VBox();
 	
@@ -54,16 +55,13 @@ public class Column
 	protected ButtonField zKentaYamb = new ButtonField("");
 	
 	protected ArrayList<ButtonField> nizButtona = new ArrayList<>();
-	
+		
 	public Column (ArrayList<DiceCanvas> dicesCanvas, Button roll, ArrayList<CheckBox> chk)
 	{
 		//setujemo polja koja trebaju da budu disablovana
 		b.setDisable(true);
 		b.setPrefSize(60, 50);
-		Image diceImage = new Image("Kockice/ColumnFree.png");
-	    BackgroundImage backgroundImage = new BackgroundImage(diceImage, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
-        Background background = new Background(backgroundImage);
-        b.setBackground(background);
+		
 		z16.setDisable(true);
 		zMaxMin.setDisable(true);
 		zKentaYamb.setDisable(true);
@@ -108,7 +106,7 @@ public class Column
 			YambForm.pickDices(dicesCanvas, chk);
 			if (numberOfSelectedDices(dicesCanvas) == 5)
 			{
-				max.setText(String.valueOf(sumMaxMin(dicesCanvas)));
+				max.setText(String.valueOf(SumResult.sumMaxMinDice(dicesCanvas, numberOfSelectedDices(dicesCanvas))));
 				max.setDisable(true);
 				resetAfter3roll(dicesCanvas, roll, chk);
 			}
@@ -126,7 +124,7 @@ public class Column
 			YambForm.pickDices(dicesCanvas, chk);
 			if (numberOfSelectedDices(dicesCanvas) == 5)
 			{
-				min.setText(String.valueOf(sumMaxMin(dicesCanvas)));
+				min.setText(String.valueOf(SumResult.sumMaxMinDice(dicesCanvas, numberOfSelectedDices(dicesCanvas))));
 				min.setDisable(true);
 				resetAfter3roll(dicesCanvas, roll, chk);
 			}
@@ -209,10 +207,9 @@ public class Column
 	}
 	
 	//nakon 3 bacanja kockice i upisa rezultata bacanje je ponovo omoguceno i kockice su podesene na 0 kao i svi checkboxovi su odcekirani
-	protected void resetAfter3roll(ArrayList<DiceCanvas> dicesCanvas, Button roll, ArrayList<CheckBox> chk)
+	private void resetAfter3roll(ArrayList<DiceCanvas> dicesCanvas, Button roll, ArrayList<CheckBox> chk)
 	{
 		YambForm.setBrojPokusaja(0);
-		//YambForm.remaningMoves--;
 		roll.setDisable(false);
 		
 		for (DiceCanvas diceCanvas : dicesCanvas) 
@@ -226,7 +223,7 @@ public class Column
 		}
 	}
 	//broj obelezenih kockica, potrebno je prilikom upisa max i min
-	protected int numberOfSelectedDices (ArrayList<DiceCanvas> dicesCanvas)
+	private int numberOfSelectedDices (ArrayList<DiceCanvas> dicesCanvas)
 	{
 		int b = 0;
 		for (DiceCanvas d : dicesCanvas) 
@@ -235,16 +232,6 @@ public class Column
 				b++;
 		}
 		return b;
-	}
-	//sabira kockice, potrebno je prilikom upisa max i min
-	protected int sumMaxMin(ArrayList<DiceCanvas> dicesCanvas)
-	{
-		int sum = 0;
-		if (numberOfSelectedDices(dicesCanvas) == 5)
-			for (DiceCanvas diceCanvas : dicesCanvas) 
-				if (diceCanvas.isSelected() == true)
-					sum += diceCanvas.getNumber();
-		return sum;
 	}
 	
 	//Klikom na b1 (prilikom unosa rezultata) b2 se prebacuje na enable. Koristi se kod kolona kod kojih imamo pravila za redosled unosa. Metode ruleFromTop i ruleFromBottom
@@ -276,22 +263,21 @@ public class Column
 			onButtonClickChangeOtherButtonDisable(nizButtona.get(i), nizButtona.get(i - 1));
 		}
 	}
-	
-	//nakon prvog bacanja kockice polja u koloni hand postavljamo na true. Pozivamo prilikom bacanja kockica
-	public void ruleForHand()
+	//setovanje slike za kolonu
+	protected void setImageForColumn (String image, String textIfimageNoExist)
 	{
-		if (YambForm.getBrojPokusaja() > 0)
-			for (Button button : nizButtona) 
-				button.setDisable(true);
-	}
-	
-	//pri prvom bacanju vracamo polja u koloni hand koja su prazna na enable. Pozivamo prilikom bacanja kockica
-	public void ruleForHandResetEmptyField()
-	{
-		if (YambForm.getBrojPokusaja() == 0)
-			for (Button button : nizButtona)
-				if (button.getText() == "" )
-					button.setDisable(false);
+		try 
+		{
+			Image diceImage = new Image(image);
+			BackgroundImage backgroundImage = new BackgroundImage(diceImage, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
+		    Background background = new Background(backgroundImage);
+			b.setBackground(background);
+		}
+		catch (IllegalArgumentException e) 
+		{
+			b.setText(textIfimageNoExist);
+			b.setFont(new Font(null, 23));
+		}
 	}
 	
 	public VBox getVb() {return vb;}

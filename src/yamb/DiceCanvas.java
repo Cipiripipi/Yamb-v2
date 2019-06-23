@@ -25,7 +25,6 @@ public class DiceCanvas extends Canvas
 		gc.setLineWidth(2);
 		gc.strokeRect(0, 0, 70, 70);
 		gc.setFill(Color.valueOf(color));
-		
 	}
 	
 	public void drawDice (int number)
@@ -108,14 +107,12 @@ public class DiceCanvas extends Canvas
 			        
 			        try {
 						Thread.sleep(25);
-						
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
 			    }
 			    
 				//Postavljamo konacnu vrednost kockice
-				//gc.clearRect(2, 2, 67, 67);
 				Platform.runLater(() -> drawDice(0));
 		        Platform.runLater(() -> drawDice(number));
 		       
@@ -131,14 +128,7 @@ public class DiceCanvas extends Canvas
 	public void setNumber(int number) {this.number = number;}
 	public String getColor() {return color;}
 	public void setColor(String color) {this.color = color;}
-
-	public boolean isSelected() {
-		return selected;
-	}
-
-	public void setSelected(boolean selected) {
-		this.selected = selected;
-	}
-	
+	public boolean isSelected() {return selected;}
+	public void setSelected(boolean selected) {this.selected = selected;}
 	
 }

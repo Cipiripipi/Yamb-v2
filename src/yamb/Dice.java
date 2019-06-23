@@ -13,7 +13,7 @@ import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
-
+////////NE KORISTI SE VISE
 public class Dice extends Button 
 {
 	private int number;
